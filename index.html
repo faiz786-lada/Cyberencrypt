@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CYBER-CHAT · End-to-End Encrypted Self-Destructing Chat Rooms</title>
+<meta name="description" content="Create a free, self-destructing, end-to-end encrypted chat room in one click. AES-256-GCM encryption in your browser — no signup, no logs, rooms auto-delete after 30 minutes." />
+<meta name="keywords" content="encrypted chat, self destructing chat, end to end encryption, private chat room, secure messaging, ephemeral chat, AES-256-GCM, anonymous chat" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="CYBER-CHAT" />
+<link rel="canonical" href="https://cyberencrypt.netlify.app/" />
+
+<!-- Google Search Console verification -->
+<meta name="google-site-verification" content="zykTbQkdf5dPPgpVTfiYRXbbOxgNHy7e6_BS-RwxM08" />
+
+<!-- Open Graph / Facebook / WhatsApp / Telegram previews -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://cyberencrypt.netlify.app/" />
+<meta property="og:title" content="CYBER-CHAT · End-to-End Encrypted Self-Destructing Chat Rooms" />
+<meta property="og:description" content="Create a free, self-destructing, end-to-end encrypted chat room in one click. Nobody, not even our servers, can read your messages." />
+<meta property="og:image" content="https://cyberencrypt.netlify.app/og-image.png" />
+<meta property="og:site_name" content="CYBER-CHAT" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="CYBER-CHAT · End-to-End Encrypted Self-Destructing Chat Rooms" />
+<meta name="twitter:description" content="One-click private chat rooms. AES-256-GCM end-to-end encryption. Auto-deletes after 30 minutes." />
+<meta name="twitter:image" content="https://cyberencrypt.netlify.app/og-image.png" />
+
+<!-- Favicon -->
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+<!-- Structured data for rich results -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CYBER-CHAT",
+  "url": "https://cyberencrypt.netlify.app/",
+  "applicationCategory": "CommunicationApplication",
+  "operatingSystem": "Any",
+  "description": "Create a self-destructing, end-to-end encrypted chat room in one click. AES-256-GCM encryption in your browser — no signup, no logs, rooms auto-delete after 30 minutes.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="dot"></span> CYBER-CHAT</div>
+      <div class="conn online" id="connStatus"><span class="led"></span><span id="connText">ONLINE</span></div>
+    </header>
+
+    <main class="home-main">
+      <section class="panel" data-tag="secure_channel.init">
+        <div class="panel-body">
+          <h1 class="hero-title">Encrypted rooms<br /><span>that erase themselves.</span></h1>
+          <p class="hero-sub">
+            One tap spins up a private room, AES-256-GCM encrypted end-to-end
+            in your browser. Nobody — not even our servers — can read the
+            messages. Every room self-destructs 30 minutes after creation.
+          </p>
+
+          <button class="btn btn-primary" id="createBtn">
+            <span id="createBtnLabel">Create secure room</span>
+          </button>
+
+          <div class="readout" id="readout">
+            <div class="readout-row">
+              <span class="readout-label">Room ID</span>
+              <span class="readout-value" id="roomIdOut">—</span>
+            </div>
+            <div class="readout-row">
+              <span class="readout-label">Share link</span>
+              <span class="readout-value" id="roomLinkOut">—</span>
+              <button class="copy-btn" id="copyBtn">COPY</button>
+            </div>
+            <div class="readout-row">
+              <a class="btn btn-primary" id="enterRoomBtn" href="#" style="text-decoration:none; margin-top:6px;">Enter room →</a>
+            </div>
+          </div>
+
+          <div class="divider">or join existing</div>
+
+          <label class="field-label" for="joinInput">Paste room link or room ID</label>
+          <div class="input-row">
+            <input type="text" id="joinInput" placeholder="https://.../chat.html?room=...#..." autocomplete="off" />
+            <button class="btn btn-ghost" id="joinBtn" style="width:auto; padding:0 16px;">Join</button>
+          </div>
+
+          <p class="foot-note">
+            <span class="icon">▲</span>
+            <span>Encryption keys never touch our servers — they live only in your browser and the link's <code>#fragment</code>, which is never transmitted anywhere.</span>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer style="text-align:center; padding:16px; font-family:var(--mono); font-size:11px; color:var(--muted);">
+      AES-256-GCM · Web Crypto API · Rooms auto-delete after 30 min
+    </footer>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CYBER-CHAT · Room</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="shell chat-shell" id="chatShell" style="display:none;">
+    <div class="chat-topbar">
+      <div class="left">
+        <div class="brand"><span class="dot"></span> CYBER-CHAT</div>
+        <span class="room-id-chip" id="roomIdChip">ROOM</span>
+        <span class="meta-item">◈ <b id="onlineCount">0</b> online</span>
+        <span class="meta-item">⏱ expires in <b id="expiresIn">30:00</b></span>
+      </div>
+      <div class="conn online" id="connStatus"><span class="led"></span><span id="connText">ONLINE</span></div>
+    </div>
+    <div class="expiry-bar-wrap"><div class="expiry-bar" id="expiryBar"></div></div>
+
+    <div class="messages" id="messages"></div>
+    <div class="typing-row" id="typingRow"></div>
+
+    <form class="composer" id="composerForm">
+      <input type="text" id="msgInput" placeholder="Type an encrypted message…" autocomplete="off" maxlength="2000" />
+      <button type="submit" class="send-btn" id="sendBtn" aria-label="Send">➤</button>
+    </form>
+  </div>
+
+  <!-- expired / invalid / loading state -->
+  <div class="shell" id="statusShell">
+    <header class="topbar">
+      <div class="brand"><span class="dot"></span> CYBER-CHAT</div>
+    </header>
+    <div class="status-page">
+      <div class="status-glyph" id="statusGlyph">◌</div>
+      <div class="status-title" id="statusTitle">Connecting…</div>
+      <div class="status-sub" id="statusSub">Establishing secure channel.</div>
+      <a href="index.html" class="btn btn-primary" id="statusHomeBtn" style="width:auto; padding:12px 24px; display:none; text-decoration:none;">Create a new room</a>
+    </div>
+  </div>
+
+  <script type="module" src="chat.js"></script>
+</body>
+</html>

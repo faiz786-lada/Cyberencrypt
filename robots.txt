@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /chat.html
+
+Sitemap: https://cyberencrypt.netlify.app/sitemap.xml

@@ -1,0 +1,56 @@
+{
+  "rules": {
+    "rooms": {
+      "$roomId": {
+        // A room is "active" only if meta exists, active=true, and
+        // its expiresAt is still in the future relative to request time.
+        ".read": "data.child('meta').child('active').val() === true && data.child('meta/expiresAt').val() > now",
+        ".write": "(!data.exists() && !newData.exists()) || (data.child('meta').child('active').val() === true && data.child('meta/expiresAt').val() > now) || (!data.exists() && newData.child('meta').exists())",
+
+        "meta": {
+          // Anyone can create a room's metadata once (room creation),
+          // but it can never be edited after creation except by the
+          // Cloud Function (which uses the Admin SDK and bypasses rules),
+          // and it must expire <= 30 minutes from now.
+          ".write": "!data.exists() && newData.exists() && newData.child('active').val() === true && newData.child('expiresAt').val() <= (now + 30 * 60 * 1000 + 5000)",
+          ".validate": "newData.hasChildren(['createdAt','expiresAt','active'])",
+          "createdAt": { ".validate": "newData.val() <= now" },
+          "expiresAt": { ".validate": "newData.isNumber()" },
+          "active": { ".validate": "newData.isBoolean()" }
+        },
+
+        "messages": {
+          ".read": "root.child('rooms/' + $roomId + '/meta/active').val() === true && root.child('rooms/' + $roomId + '/meta/expiresAt').val() > now",
+          ".write": "root.child('rooms/' + $roomId + '/meta/active').val() === true && root.child('rooms/' + $roomId + '/meta/expiresAt').val() > now",
+          "$messageId": {
+            ".validate": "newData.hasChildren(['encryptedData','iv','senderId','timestamp'])",
+            "encryptedData": { ".validate": "newData.isString() && newData.val().length < 20000" },
+            "iv": { ".validate": "newData.isString() && newData.val().length < 100" },
+            "senderId": { ".validate": "newData.isString() && newData.val().length < 100" },
+            "timestamp": { ".validate": "newData.val() <= now" },
+            "$other": { ".validate": false }
+          }
+        },
+
+        "presence": {
+          ".read": "root.child('rooms/' + $roomId + '/meta/active').val() === true && root.child('rooms/' + $roomId + '/meta/expiresAt').val() > now",
+          "$clientId": {
+            ".write": "root.child('rooms/' + $roomId + '/meta/active').val() === true && root.child('rooms/' + $roomId + '/meta/expiresAt').val() > now",
+            ".validate": "newData.hasChild('name')"
+          }
+        },
+
+        "typing": {
+          ".read": "root.child('rooms/' + $roomId + '/meta/active').val() === true && root.child('rooms/' + $roomId + '/meta/expiresAt').val() > now",
+          "$clientId": {
+            ".write": "root.child('rooms/' + $roomId + '/meta/active').val() === true && root.child('rooms/' + $roomId + '/meta/expiresAt').val() > now"
+          }
+        }
+      }
+    },
+    "$other": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}
